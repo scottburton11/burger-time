@@ -1,8 +1,8 @@
 {
-  "name": "module",
-  "title": "New Module",
-  "description": "",
-  "version": "This is auto replaced",
+  "name": "burger-time",
+  "title": "Burger Time",
+  "description": "Make sure your players eat on time",
+  "version": "0.0.1",
   "library": "false",
   "manifestPlusVersion": "1.0.0",
   "minimumCoreVersion": "0.7.9",
@@ -15,19 +15,25 @@
     }
   ],
   "dependencies": [
-
+      {
+        "name": "about-time",
+        "manifest": "https://gitlab.com/tposney/about-time/-/raw/master/src/module.json"
+      },
+      {
+        "name": "dnd5e",
+        "type": "system"
+      }
   ],
   "conflicts": [
     
   ],
   "esmodules": [
-    "/scripts/module.js"
+    "scripts/burger-time.js"
   ],
   "scripts": [
-    "/scripts/lib/lib.js"
   ],
   "styles": [
-    "/styles/module.css"
+    "styles/module.css"
   ],
   "languages": [
     {
@@ -40,9 +46,6 @@
   "manifest": "This is auto replaced",
   "download": "This is auto replaced",
   "media": [
-    {
-      "type": "icon",
-      "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
-    }
+    
   ]
 }
