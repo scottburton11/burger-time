@@ -6,9 +6,9 @@
 
 Dungeons & Dragons 5e Hunger rules for Foundry VTT, simplified.
 
-According to the [SRD 5th Edition Starvation Rules](https://www.5esrd.com/gamemastering/hazards/starvation/), a character needs 1 pound of food per day or should suffer 1 level of exhaustion.
+According to the [SRD 5th Edition Starvation Rules](https://www.5esrd.com/gamemastering/hazards/starvation/), a character needs 1 pound of food per day or should suffer exhaustion.
 
-Burger Time automates hunger checks for players, reminding them via private message to eat.
+Burger Time automates hunger checks for players, reminding them via private message to eat. By default, it assumes players are using the SRD "Rations" item, and allows players to decide when to eat.
 ## How It Works
 Burger Time requires [About Time](https://gitlab.com/tposney/about-time) to track active player time. It uses world time, and only affects active players. 
 
@@ -31,9 +31,9 @@ Hunger is tracked in the following circumstances:
 * The player is playing
 * Time is advancing, either manually or with the game clock running
 
-When the game clock is skips ahead by more than 24 hours, or when it skips backwards by any amount, Actor hunger is reset, and any hunger effects are removed. This allows the GM to use game calendar for narrative storytelling purposes without starving players. 
+When the game clock is skips ahead by more than 24 hours, or when it skips backwards by any amount, the players are assumed to have eaten – Actor hunger is reset, and any hunger effects are removed. This allows the GM to use game calendar for narrative storytelling purposes without starving players. 
 ### Consuming Food
-Players can use food as you would any other item –- by clicking the "roll" icon next to the item in their character sheet. Burger Time will detect that food was used.
+Players can use food as you would any other item – by clicking the "roll" icon next to the item in their character sheet. Burger Time will detect that food was used.
 
 When a player eats, the following happens:
 
