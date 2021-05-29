@@ -14,6 +14,7 @@ Burger Time requires [About Time](https://gitlab.com/tposney/about-time) to trac
 
 Hunger is tracked at the Actor level, and all Tokens associated with the Actor share the same Hunger level. 
 
+Time between meals is only tracked for active players –– removing a token from the active scene stops the hunger timer, and hunger isn't tracked for logged-out players. Players will never starve because they missed a session or two. 
 ### Time Between Meals
 Burger Time tracks time since a player last ate, and reminds them every 24 hours of their current hunger status. 
 
@@ -23,7 +24,14 @@ game.Gametime.startRunning()
 ```
 When a scene is activated, Burger Time will try to start tracking hunger on all of the scene's player-controlled actors. Likewise, when a GM drags a token into a scene, that it begins to track that actor's hunger if it isn't already. 
 
-Time between meals is only tracked for active players –– removing a token from the active scene stops the hunger timer, and hunger isn't tracked for logged-out players. Players will never starve because they missed a session or two. 
+Hunger is tracked in the following circumstances:
+
+* An Actor is player-controlled
+* It's in an active scene
+* The player is playing
+* Time is advancing, either manually or with the game clock running
+
+When the game clock is skips ahead by more than 24 hours, or when it skips backwards by any amount, Actor hunger is reset, and any hunger effects are removed. This allows the GM to use game calendar for narrative storytelling purposes without starving players. 
 ### Consuming Food
 Players can use food as you would any other item –- by clicking the "roll" icon next to the item in their character sheet. Burger Time will detect that food was used.
 
@@ -37,13 +45,14 @@ GMs can set the food item name (default "Rations").
 ### Hunger
 Burger Time maintains an ActiveEffect for players afflicted by hunger. It adds a level of exhaustion for each 24 hour period beyond their hunger threshold, up to a maximum (default 2).
 
+Burger Time's Hunger effect only applies exhaustion; it does not further automate any rules that involve it. To accomplish that, this guide to [enhancing the exhaustion condition with MidiQol](https://www.foundryvtt-hub.com/guide/under-the-hood-enhancing-exhaustion-condition/) should do the trick.
 ## Troubleshooting
 Since hunger timers depend on the game's world time, players won't see any notifications unless the game clock advances. There are a few ways this can happen:
 
 * The [game timer is actively running](https://gitlab.com/tposney/about-time/-/blob/master/GettingStarted.md#time-passing), using `game.Gametime.startRunning()`. This is how Burger Time is designed to be used.
 * You manually advance the clock, using About Time's clock widget, `game.advanceTime()`, or some other method.
 
-Burger Time may behave weirdly if the clock has never run. When in doubt, use the `resetHunger` method (below) to reinitialize an actor. 
+Burger Time may behave weirdly if the clock has never run. When in doubt, set the game clock, then use the `resetHunger` method (below) to reinitialize an actor. 
 ## GM Macros
 The following useful macros are available for GMs:
 * `Burger Time.resetHunger(actor)` - Resets all Burger Time flags, and removes any ActiveEffects.
@@ -55,3 +64,5 @@ The following useful macros are available for GMs:
 
 ## Changelog
 
+0.1.0 - Initial release
+0.0.1 - Experimental 
