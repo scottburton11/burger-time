@@ -1,4 +1,6 @@
-CONFIG.debug.hooks = true
+const debug = false 
+
+CONFIG.debug.hooks = debug
 
 import registerSettings from "./lib/settings.js"
 import {
@@ -27,7 +29,7 @@ Hooks.once('init', async => {
 })
 
 Hooks.once('ready', async => {
-  if (game.user.isGM) {
+  if (game.user.isGM && debug) {
     BurgerTime.showHungerTable()
   }
 })
@@ -153,6 +155,7 @@ class BurgerTime {
       Hooks.on('addOrUpdateHungerEffect', async () => { hungerTable.render(false) })
       Hooks.on('consumeFood', async () => { hungerTable.render(true) })
       Hooks.on('resetHunger', async () => { hungerTable.render(true) })
+      Hooks.on('createActor', async () => { hungerTable.render(true) })
 
       hungerTable.render(true)
     }
