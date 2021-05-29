@@ -12,6 +12,12 @@ Burger Time automates hunger checks for players, reminding them via private mess
 
 ![Hunger Chat Message](https://user-images.githubusercontent.com/12917/120086001-b71f3a00-c091-11eb-8e3c-72787bc006f8.png)
 
+## Why?
+Keeping track of hunger is such a chore that most GMs (myself included) ignore it altogether, or treat it as part of a Long Rest routine. 
+
+For most types of campaigns, you should probably ignore hunger (like you would ignore encumberance); it takes players out of a fast-moving narrative and feels pedantic. 
+
+However, some kinds of campaigns really benefit from survival rules – particularly hex crawls, dungeon crawls, survival campaigns and anything where the players have a lot of agency. Keeping track of food, water, torches and other adventuring equipment is key to storytelling in these circumstances, and Burger Time allows you to do that with minimal GM effort.
 ## How It Works
 Burger Time requires [About Time](https://gitlab.com/tposney/about-time) to track active player time. It uses world time, and only affects active players. 
 
@@ -68,6 +74,3 @@ The following useful macros are available for GMs:
 
 * [About Time](https://gitlab.com/tposney/about-time)
 * [D&D 5e System]()
-
-## Why?
-Keeping track of hunger is such a chore that most GMs (myself included) ignore it altogether, or
