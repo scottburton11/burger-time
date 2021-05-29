@@ -9,9 +9,9 @@
   "compatibleCoreVersion": "0.7.10",
   "authors": [
     {
-      "name": "The League of Extraordinary FVTT Developers",
-      "url": "https://github.com/League-of-Foundry-Developers",
-      "discord": "discordID#0001"
+      "name": "Scott Burton",
+      "url": "https://github.com/scottburton11",
+      "discord": "Burton#9726"
     }
   ],
   "dependencies": [
