@@ -61,8 +61,3 @@ The following useful macros are available for GMs:
 
 * [About Time](https://gitlab.com/tposney/about-time)
 * [D&D 5e System]()
-
-## Changelog
-
-0.1.0 - Initial release
-0.0.1 - Experimental 
