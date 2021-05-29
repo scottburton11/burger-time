@@ -32,6 +32,14 @@ When a player eats, the following happens:
 GMs can set the food item name (default "Rations").
 ### Hunger
 Burger Time maintains an ActiveEffect for players afflicted by hunger. It adds a level of exhaustion for each 24 hour period beyond their hunger threshold, up to a maximum (default 2).
+
+## Troubleshooting
+Since hunger timers depend on the game's world time, players won't see any notifications unless the game clock advances. There are a few ways this can happen:
+
+* The [game timer is actively running](https://gitlab.com/tposney/about-time/-/blob/master/GettingStarted.md#time-passing), using `game.Gametime.startRunning()`. This is how Burger Time is designed to be used.
+* You manually advance the clock, using About Time's clock widget, `game.advanceTime()`, or some other method.
+
+Burger Time may behave weirdly if the clock has never run. When in doubt, use the `resetHunger` method (below) to reinitialize an actor. 
 ## GM Macros
 The following useful macros are available for GMs:
 * `BurgerTime.resetHunger(actor)` - Resets all BurgerTime flags, and removes any ActiveEffects.
