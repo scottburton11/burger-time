@@ -17,23 +17,23 @@ const registerSettings = async () => {
     default: 1,
   })
 
-  await game.settings.register('burger-time', 'thirstEnabled', {
-    name: "[COMING SOON] Enable Thirst",
-    hint: "Also subject players to water rules; players will need to drink water and maintain waterskins",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: true,
-  })
+  // await game.settings.register('burger-time', 'thirstEnabled', {
+  //   name: "[COMING SOON] Enable Thirst",
+  //   hint: "Also subject players to water rules; players will need to drink water and maintain waterskins",
+  //   scope: "world",
+  //   config: true,
+  //   type: Boolean,
+  //   default: true,
+  // })
 
-  await game.settings.register('burger-time', 'waterPerDay', {
-    name: "Water Per Day",
-    hint: "Each actor consumes this amount of water per day in charges",
-    scope: "world",
-    config: true,
-    type: Number,
-    default: 1,
-  })
+  // await game.settings.register('burger-time', 'waterPerDay', {
+  //   name: "Water Per Day",
+  //   hint: "Each actor consumes this amount of water per day in charges",
+  //   scope: "world",
+  //   config: true,
+  //   type: Number,
+  //   default: 1,
+  // })
 
   await game.settings.register('burger-time', 'maxExhaustion', {
     name: "Max Exhaustion to apply",
@@ -53,14 +53,14 @@ const registerSettings = async () => {
     default: "Rations",
   })
 
-  await game.settings.register('burger-time', 'waterName', {
-    name: "Waterskin Name",
-    hint: "Use this item name for waterskins",
-    scope: "world",
-    config: true,
-    type: String,
-    default: "Waterskin",
-  })
-}
+//   await game.settings.register('burger-time', 'waterName', {
+//     name: "Waterskin Name",
+//     hint: "Use this item name for waterskins",
+//     scope: "world",
+//     config: true,
+//     type: String,
+//     default: "Waterskin",
+//   })
+// }
 
 export default registerSettings
