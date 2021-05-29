@@ -1,0 +1,24 @@
+<div id="hunger_table">
+  <table>
+    <thead>
+      <tr>
+        <th>Actor</th>
+        <th>Last Meal</th>
+        <th>Last Notified</th>
+        <th>Hours Ago</th>
+        <th>Hunger</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each actors }}
+        <tr>
+          <td>{{ name }}</td>
+          <td>{{ lastMealAt.date }} {{ lastMealAt.time }}</td>
+          <td>{{ lastNotified.date }} {{ lastNotified.time }}</td>
+          <td>{{ hoursSinceLastMeal }}</td>
+          <td>{{ hunger }}</td>
+        </tr>
+      {{/each }}
+    </tbody>
+  </table>
+</div>
