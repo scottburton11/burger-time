@@ -47,6 +47,7 @@ When a player eats, the following happens:
 GMs can set the food item name (default "Rations").
 ### Hunger
 Burger Time maintains an ActiveEffect for players afflicted by hunger. It adds a level of exhaustion for each 24 hour period beyond their hunger threshold, up to a maximum (default 2).
+
 ![Hunger Active Effect](https://user-images.githubusercontent.com/12917/120086017-d3bb7200-c091-11eb-8f95-a451edf1777f.png)
 
 Burger Time's Hunger effect only applies exhaustion; it does not further automate any rules that involve it. To accomplish that, this guide to [enhancing the exhaustion condition with MidiQol](https://www.foundryvtt-hub.com/guide/under-the-hood-enhancing-exhaustion-condition/) should do the trick.
