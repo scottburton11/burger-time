@@ -7,5 +7,5 @@ export const secondsAgo = (seconds) => {
 }
 
 export const daysFromSeconds = (seconds) => {
-  return Math.round(seconds / DAY)
+  return Math.floor(seconds / DAY)
 }
