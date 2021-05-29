@@ -148,11 +148,11 @@ class BurgerTime {
     } else {
       const hungerTable = new HungerTable()
       window.hungerTable = hungerTable
-      Hooks.on('updateWorldTime', () => { hungerTable.render(false) })
-      Hooks.on('evaluateHunger', () => { hungerTable.render(false) })
-      Hooks.on('addOrUpdateHungerEffect', () => { hungerTable.render(false) })
-      Hooks.on('consumeFood', () => { hungerTable.render(false) })
-      Hooks.on('resetHunger', () => { hungerTable.render(false) })
+      Hooks.on('updateWorldTime', async () => { hungerTable.render(false) })
+      Hooks.on('evaluateHunger', async () => { hungerTable.render(true) })
+      Hooks.on('addOrUpdateHungerEffect', async () => { hungerTable.render(false) })
+      Hooks.on('consumeFood', async () => { hungerTable.render(true) })
+      Hooks.on('resetHunger', async () => { hungerTable.render(true) })
 
       hungerTable.render(true)
     }
