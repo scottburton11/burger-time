@@ -9,6 +9,9 @@ Dungeons & Dragons 5e Hunger rules for Foundry VTT, simplified.
 According to the [SRD 5th Edition Starvation Rules](https://www.5esrd.com/gamemastering/hazards/starvation/), a character needs 1 pound of food per day or should suffer exhaustion.
 
 Burger Time automates hunger checks for players, reminding them via private message to eat. By default, it assumes players are using the SRD "Rations" item, and allows players to decide when to eat.
+
+![Hunger Chat Message](https://user-images.githubusercontent.com/12917/120086001-b71f3a00-c091-11eb-8e3c-72787bc006f8.png)
+
 ## How It Works
 Burger Time requires [About Time](https://gitlab.com/tposney/about-time) to track active player time. It uses world time, and only affects active players. 
 
@@ -44,6 +47,7 @@ When a player eats, the following happens:
 GMs can set the food item name (default "Rations").
 ### Hunger
 Burger Time maintains an ActiveEffect for players afflicted by hunger. It adds a level of exhaustion for each 24 hour period beyond their hunger threshold, up to a maximum (default 2).
+![Hunger Active Effect](https://user-images.githubusercontent.com/12917/120086017-d3bb7200-c091-11eb-8f95-a451edf1777f.png)
 
 Burger Time's Hunger effect only applies exhaustion; it does not further automate any rules that involve it. To accomplish that, this guide to [enhancing the exhaustion condition with MidiQol](https://www.foundryvtt-hub.com/guide/under-the-hood-enhancing-exhaustion-condition/) should do the trick.
 ## Troubleshooting
