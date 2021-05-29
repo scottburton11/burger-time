@@ -24,7 +24,7 @@ export const evaluateHunger = async (actor) => {
   const daysSinceLastMeal = daysFromSeconds(Number(actor.getFlag('burger-time', 'secondsSinceLastMeal')))
 
   const exhaustionLevel = Math.min((4 - hungerIndex(daysSinceLastMeal)), game.settings.get('burger-time', 'maxExhaustion'))
-  if (hungerIndex <= 3) {
+  if (hungerIndex(daysSinceLastMeal) <= 3) {
     await addOrUpdateHungerEffect(actor, exhaustionLevel)
   }
 
@@ -54,7 +54,7 @@ export const addOrUpdateHungerEffect = async (actor, exhaustionLevel) => {
     }
   }
   let effect;
-  const hungerEffects = this.activeHungerEffectsFor(actor)
+  const hungerEffects = activeHungerEffectsFor(actor)
   if (hungerEffects.length == 0) {
     effect = ActiveEffect.create(activeEffectConfig, actor)
     const applied = await effect.create()
@@ -72,8 +72,8 @@ export const activeHungerEffectsFor = (actor) => {
 }
 
 export const consumeFood = (actor) => {
-  this.removeHungerEffects(actor)
-  this.initializeHunger(actor)
+  removeHungerEffects(actor)
+  initializeHunger(actor)
   
   Hooks.call('consumeFood', actor)
 }
