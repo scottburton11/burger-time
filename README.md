@@ -60,8 +60,8 @@ Since hunger timers depend on the game's world time, players won't see any notif
 Burger Time may behave weirdly if the clock has never run. When in doubt, set the game clock, then use the `resetHunger` method (below) to reinitialize an actor. 
 ## GM Macros
 The following useful macros are available for GMs:
-* `Burger Time.resetHunger(actor)` - Resets all Burger Time flags, and removes any ActiveEffects.
-* `Burger Time.showHungerTable()` - Show a table of all active actors and their hunger status.
+* `game.BurgerTime.resetHunger(actor)` - Resets all Burger Time flags, and removes any ActiveEffects.
+* `game.BurgerTime.showHungerTable()` - Show a table of all active actors and their hunger status.
 ## Requirements
 
 * [About Time](https://gitlab.com/tposney/about-time)
