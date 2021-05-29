@@ -12,6 +12,8 @@ Burger Time automates hunger checks for players, reminding them via private mess
 ## How It Works
 Burger Time requires [About Time](https://gitlab.com/tposney/about-time) to track active player time. It uses world time, and only affects active players. 
 
+Hunger is tracked at the Actor level, and all Tokens associated with the Actor share the same Hunger level. 
+
 ### Time Between Meals
 Burger Time tracks time since a player last ate, and reminds them every 24 hours of their current hunger status. 
 
@@ -19,7 +21,7 @@ It expects that you're running About Time's world timer and that world time is r
 ```
 game.Gametime.startRunning()
 ```
-When a scene is activated, Burger Time will try to start tracking hunger on all of the scene's player-controlled actors. 
+When a scene is activated, Burger Time will try to start tracking hunger on all of the scene's player-controlled actors. Likewise, when a GM drags a token into a scene, that it begins to track that actor's hunger if it isn't already. 
 
 Time between meals is only tracked for active players –– removing a token from the active scene stops the hunger timer, and hunger isn't tracked for logged-out players. Players will never starve because they missed a session or two. 
 ### Consuming Food
