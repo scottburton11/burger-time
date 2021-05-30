@@ -12,9 +12,27 @@ import {
   HOUR
 } from './constants.js'
 
+let hungerTable;
 export default class HungerTable extends Application {
   constructor(object = {}, options = null) {
     super(object, options)
+  }
+
+  static activate() {
+    if (hungerTable) {
+      hungerTable.render(true)
+    } else {
+      hungerTable = new HungerTable()
+      Hooks.on('updateWorldTime', async () => { hungerTable.render(false) })
+      Hooks.on('evaluateHunger', async () => { hungerTable.render(true) })
+      Hooks.on('addOrUpdateHungerEffect', async () => { hungerTable.render(false) })
+      Hooks.on('consumeFood', async () => { hungerTable.render(true) })
+      Hooks.on('resetHunger', async () => { hungerTable.render(true) })
+      Hooks.on('createActor', async () => { hungerTable.render(true) })
+  
+      hungerTable.render(true)
+    }
+    return hungerTable
   }
 
   getData() {
