@@ -61,6 +61,6 @@ const registerSettings = async () => {
 //     type: String,
 //     default: "Waterskin",
 //   })
-// }
+}
 
 export default registerSettings
