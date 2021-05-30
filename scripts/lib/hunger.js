@@ -17,7 +17,7 @@ export const hungerIndex = (daysSinceLastMeal) => {
 }
 
 export const hungerLevel = (actor) => {
-  return HUNGER_LEVELS[hungerIndex(daysFromSeconds(secondsAgo(Number(actor.getFlag('burger-time', 'lastMealAt')))))]
+  return HUNGER_LEVELS[hungerIndex(daysFromSeconds(Number(actor.getFlag('burger-time', 'secondsSinceLastMeal'))))] || "Unknown"
 }
 
 export const evaluateHunger = async (actor) => {
@@ -61,7 +61,7 @@ export const addOrUpdateHungerEffect = async (actor, exhaustionLevel) => {
     actor.setFlag('burger-time', 'hungerActiveEffect', applied._id)
   } else {
     effect = hungerEffects[0]
-    actor.updateEmbeddedEntity("ActiveEffect", Object.assign(effect, activeEffectConfig))
+    actor.updateEmbeddedEntity("ActiveEffect", Object.assign(effect.data, activeEffectConfig))
   }
 
   Hooks.call('addOrUpdateHungerEffect', actor, effect)
