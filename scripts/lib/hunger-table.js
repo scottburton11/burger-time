@@ -37,7 +37,7 @@ export default class HungerTable extends Application {
 
   getData() {
     return {
-      actors: game.actors.map(a => {
+      actors: game.actors.filter(actor => actor.hasPlayerOwner).map(a => {
         const actor = game.actors.get(a._id)
         return {
           name: actor.name, 
