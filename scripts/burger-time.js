@@ -53,8 +53,8 @@ class BurgerTime {
       this.initializeScene()
     })
 
-    Hooks.on('preCreateToken', async (scene, token, args) => {
-      const actor = game.actors.get(token.actorId)
+    Hooks.on('preCreateToken', async (document, data, options) => {
+      const actor = game.actors.get(document.data.actorId)
       console.log("Burger Time | pre Create Token", actor)
       if (!actor.hasPlayerOwner) return
       if (!game.user.isGM) return
@@ -63,8 +63,8 @@ class BurgerTime {
       }
     })
 
-    Hooks.on('preDeleteToken', async(scene, token) => {
-      const actor = game.actors.get(token.actorId)
+    Hooks.on('preDeleteToken', async(document, data) => {
+      const actor = game.actors.get(document.data.actorId)
       console.log("Burger Time | pre Delete Token", actor)
       // this.clearHungerTimer(actor)
     })
@@ -87,9 +87,9 @@ class BurgerTime {
       }
 
       game.scenes.active.data.tokens.forEach(async token => {
-        const actor = game.actors.get(token.actorId)
+        const actor = game.actors.get(token.data.actorId)
         if (!actor.owner) return
-        if (!actor.getFlag('burger-time', 'lastMealAt')) return
+        if (!actor.getFlag('burger-time', 'secondsSinceLastMeal')) return
 
         await actor.setFlag('burger-time', 'secondsSinceLastMeal', actor.getFlag('burger-time', 'secondsSinceLastMeal') + elapsed)
         const lastMealNotificationAt = actor.getFlag('burger-time', 'lastMealNotificationAt')
@@ -134,7 +134,7 @@ class BurgerTime {
   static initializeScene() {
     console.log("Burger Time | Initializing Scene")
     game.scenes.active.data.tokens.forEach(token => {
-      const actor = game.actors.get(token.actorId)
+      const actor = game.actors.get(token.data.actorId)
       if (!actor.hasPlayerOwner) return
       if (!game.user.isGM) return
       if (!actor.getFlag('burger-time', 'lastMealAt')) {
