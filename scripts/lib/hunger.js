@@ -89,14 +89,16 @@ export const removeHungerEffects = (actor) => {
 
 export const initializeHunger = async (actor) => {
   const now = game.Gametime.pc.currentTime
-  await actor.setFlag('burger-time', 'secondsSinceLastMeal', 0)
-  await actor.setFlag('burger-time', 'lastMealAt', now)
-  await actor.setFlag('burger-time', 'lastMealNotificationAt', now)
-  await actor.setFlag('burger-time', 'lastDrinkAt', now)
+  await Promise.all([
+    actor.setFlag('burger-time', 'secondsSinceLastMeal', 0),
+    actor.setFlag('burger-time', 'lastMealAt', now),
+    actor.setFlag('burger-time', 'lastMealNotificationAt', now),
+    actor.setFlag('burger-time', 'lastDrinkAt', now),
+  ])
 }
 
-export const unset = (actor) => {
+export const unset = async (actor) => {
   for (const key in actor.data.flags['burger-time']) {
-    actor.unsetFlag('burger-time', key)
+    await actor.unsetFlag('burger-time', key)
   }
 }
