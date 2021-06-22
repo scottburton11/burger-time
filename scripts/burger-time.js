@@ -88,10 +88,12 @@ class BurgerTime {
 
       game.scenes.active.data.tokens.forEach(async token => {
         const actor = game.actors.get(token.data.actorId)
-        if (!actor.owner) return
-        if (!actor.getFlag('burger-time', 'secondsSinceLastMeal')) return
+        if (!actor.isOwner) return
 
-        await actor.setFlag('burger-time', 'secondsSinceLastMeal', actor.getFlag('burger-time', 'secondsSinceLastMeal') + elapsed)
+        const seconds = actor.getFlag('burger-time', 'secondsSinceLastMeal')
+        if (typeof seconds === 'undefined') return
+
+        await actor.setFlag('burger-time', 'secondsSinceLastMeal', seconds + elapsed)
         const lastMealNotificationAt = actor.getFlag('burger-time', 'lastMealNotificationAt')
         const daysSinceLastMealNotification = daysFromSeconds(secondsAgo(lastMealNotificationAt))
         if (daysSinceLastMealNotification >= 1) {
