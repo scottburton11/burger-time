@@ -55,6 +55,7 @@ class BurgerTime {
 
     Hooks.on('preCreateToken', async (document, data, options) => {
       const actor = game.actors.get(document.data.actorId)
+      if (typeof actor === "undefined") return
       if (!actor.hasPlayerOwner) return
       if (!game.user.isGM) return
       if (!actor.getFlag('burger-time', 'lastMealAt')) {
@@ -153,6 +154,7 @@ class BurgerTime {
     console.log("Burger Time | Initializing Scene")
     game.scenes.active.data.tokens.forEach(token => {
       const actor = game.actors.get(token.data.actorId)
+      if (typeof actor === "undefined") return
       if (!actor.hasPlayerOwner) return
       if (!game.user.isGM) return
       if (!actor.getFlag('burger-time', 'lastMealAt')) {
