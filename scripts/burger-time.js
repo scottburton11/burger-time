@@ -123,7 +123,7 @@ class BurgerTime {
 
       if (game.settings.get('burger-time', 'rationName') === item.name) {
         if (item.data.data.quantity === data.data.quantity + 1) {
-          consumeFood(item.actor)
+          await consumeFood(item.actor)
         }
       } else if (game.settings.get('burger-time', 'waterName') === item.name) {
         if (item.data.data.uses.value === data.data.uses.value + 1) {

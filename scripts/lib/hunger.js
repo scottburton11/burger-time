@@ -71,20 +71,20 @@ export const activeHungerEffectsFor = (actor) => {
   return actor.effects.filter(effect => effect.data.flags['burger-time'] && effect.data.flags['burger-time']['effect'] === 'hunger')
 }
 
-export const consumeFood = (actor) => {
-  removeHungerEffects(actor)
-  initializeHunger(actor)
+export const consumeFood = async (actor) => {
+  await removeHungerEffects(actor)
+  await initializeHunger(actor)
   
   Hooks.call('consumeFood', actor)
 }
   
-export const removeHungerEffects = (actor) => {
+export const removeHungerEffects = async (actor) => {
   actor.effects.forEach(effect => {
     if (effect.data.label === "Hunger") {
       effect.delete()
     }
   })
-  actor.setFlag('burger-time', 'hungerActiveEffect', null)
+  await actor.setFlag('burger-time', 'hungerActiveEffect', null)
 }
 
 export const initializeHunger = async (actor) => {
