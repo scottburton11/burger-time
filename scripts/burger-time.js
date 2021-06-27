@@ -1,4 +1,4 @@
-const debug = false 
+const debug = true 
 
 CONFIG.debug.hooks = debug
 
@@ -102,6 +102,7 @@ class BurgerTime {
       })
     })
 
+    // 0.7.x ???
     Hooks.on('preUpdateOwnedItem', async (actor, item, data, action) => {
       if (data.hasOwnProperty('sort')) return
 
@@ -111,6 +112,21 @@ class BurgerTime {
         }
       } else if (game.settings.get('burger-time', 'waterName') === item.name) {
         if (item.data.uses.value === data.data.uses.value + 1) {
+
+        }
+      }
+    })
+
+    // 0.8.x
+    Hooks.on('preUpdateItem', async (item, data, options, actorId) => {
+      if (data.hasOwnProperty('sort')) return
+
+      if (game.settings.get('burger-time', 'rationName') === item.name) {
+        if (item.data.data.quantity === data.data.quantity + 1) {
+          consumeFood(item.actor)
+        }
+      } else if (game.settings.get('burger-time', 'waterName') === item.name) {
+        if (item.data.data.uses.value === data.data.uses.value + 1) {
 
         }
       }
