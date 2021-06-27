@@ -55,7 +55,6 @@ class BurgerTime {
 
     Hooks.on('preCreateToken', async (document, data, options) => {
       const actor = game.actors.get(document.data.actorId)
-      console.log("Burger Time | pre Create Token", actor)
       if (!actor.hasPlayerOwner) return
       if (!game.user.isGM) return
       if (!actor.getFlag('burger-time', 'lastMealAt')) {
@@ -65,7 +64,6 @@ class BurgerTime {
 
     Hooks.on('preDeleteToken', async(document, data) => {
       const actor = game.actors.get(document.data.actorId)
-      console.log("Burger Time | pre Delete Token", actor)
       // this.clearHungerTimer(actor)
     })
 
@@ -110,11 +108,12 @@ class BurgerTime {
         if (item.data.quantity === data.data.quantity + 1) {
           consumeFood(actor)
         }
-      } else if (game.settings.get('burger-time', 'waterName') === item.name) {
-        if (item.data.uses.value === data.data.uses.value + 1) {
+      } 
+      // else if (game.settings.get('burger-time', 'waterName') === item.name) {
+      //   if (item.data.uses.value === data.data.uses.value + 1) {
 
-        }
-      }
+      //   }
+      // }
     })
 
     // 0.8.x
@@ -125,11 +124,12 @@ class BurgerTime {
         if (item.data.data.quantity === data.data.quantity + 1) {
           await consumeFood(item.actor)
         }
-      } else if (game.settings.get('burger-time', 'waterName') === item.name) {
-        if (item.data.data.uses.value === data.data.uses.value + 1) {
+      } 
+      // else if (game.settings.get('burger-time', 'waterName') === item.name) {
+      //   if (item.data.data.uses.value === data.data.uses.value + 1) {
 
-        }
-      }
+      //   }
+      // }
     })
 
     Hooks.on('renderChatLog', async (app, html, data) => {
@@ -158,7 +158,6 @@ class BurgerTime {
       if (!actor.getFlag('burger-time', 'lastMealAt')) {
         initializeHunger(actor)
       }
-      console.log("Burger Time |", actor, actor.data.flags['burger-time'])
     })
   }
 
