@@ -69,8 +69,7 @@ class BurgerTime {
     })
 
     Hooks.on('updateWorldTime', async (seconds, elapsed) => {
-      // Skip this for GMs; hunger is only evaluated by players
-      if (game.user.isGM) return
+      if (!game.user.isGM) return
 
       // We want to reset hunger in these two circumstances
       // We skipped backwards
@@ -85,9 +84,18 @@ class BurgerTime {
         return
       }
 
+      const activeUsers = game.users.filter(user => user.active && !user.isGM)
+
       game.scenes.active.data.tokens.forEach(async token => {
         const actor = game.actors.get(token.data.actorId)
-        if (!actor.isOwner) return
+        if (typeof actor === 'undefined') return
+        if (!actor.hasPlayerOwner) return
+
+        let activeUser;
+
+        activeUser = activeUsers.find(user => actor.testUserPermission(user, "OWNER"))
+
+        if (!activeUser) return
 
         const seconds = actor.getFlag('burger-time', 'secondsSinceLastMeal')
         if (typeof seconds === 'undefined') return
