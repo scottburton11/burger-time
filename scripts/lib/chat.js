@@ -33,7 +33,7 @@ export const hungerChatMessage = (actor, hungerIndex) => {
       <div class='card-footer'>
         <span>${HUNGER_LEVELS[hungerIndex]}</span>
         <span>Last Meal: ${lastMealAt.shortDate().time} on ${lastMealAt.shortDate().date}</span>
-        <span>Rations: ${rations ? rations.data.quantity : `None`}</span>
+        <span>Rations: ${rations ? rations.data.data.quantity : `None`}</span>
       </div>
     </div>`
 
