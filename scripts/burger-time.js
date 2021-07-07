@@ -1,7 +1,3 @@
-const debug = false 
-
-CONFIG.debug.hooks = debug
-
 import registerSettings from "./lib/settings.js"
 import {
   DAY
@@ -29,7 +25,7 @@ Hooks.once('init', async => {
 })
 
 Hooks.once('ready', async => {
-  if (game.user.isGM && debug) {
+  if (game.user.isGM && false) {
     BurgerTime.showHungerTable()
   }
 })
