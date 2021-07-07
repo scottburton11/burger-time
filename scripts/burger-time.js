@@ -1,4 +1,4 @@
-const debug = false 
+const debug = true 
 
 CONFIG.debug.hooks = debug
 
@@ -59,7 +59,7 @@ class BurgerTime {
       if (!actor.hasPlayerOwner) return
       if (!game.user.isGM) return
       if (!actor.getFlag('burger-time', 'lastMealAt')) {
-        initializeHunger(actor)
+        await initializeHunger(actor)
       }
     })
 
@@ -74,13 +74,13 @@ class BurgerTime {
       // We want to reset hunger in these two circumstances
       // We skipped backwards
       if (elapsed < 0) {
-        initializeHunger(actor)
+        await initializeHunger(actor)
         return
       }
 
       // We skipped forward more than a day
       if (elapsed > DAY * 2) {
-        initializeHunger(actor)
+        await initializeHunger(actor)
         return
       }
 
@@ -160,13 +160,13 @@ class BurgerTime {
 
   static initializeScene() {
     console.log("Burger Time | Initializing Scene")
-    game.scenes.active.data.tokens.forEach(token => {
+    game.scenes.active.data.tokens.forEach(async (token) => {
       const actor = game.actors.get(token.data.actorId)
       if (typeof actor === "undefined") return
       if (!actor.hasPlayerOwner) return
       if (!game.user.isGM) return
       if (!actor.getFlag('burger-time', 'lastMealAt')) {
-        initializeHunger(actor)
+        await initializeHunger(actor)
       }
     })
   }
