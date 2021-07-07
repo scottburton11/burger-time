@@ -20,6 +20,16 @@ export const hungerLevel = (actor) => {
   return HUNGER_LEVELS[hungerIndex(daysFromSeconds(Number(actor.getFlag('burger-time', 'secondsSinceLastMeal'))))] || "Unknown"
 }
 
+
+export const updateHunger = async (actor, elapsed) => {
+  const seconds = actor.getFlag('burger-time', 'secondsSinceLastMeal')
+  if (typeof seconds === 'undefined') return
+
+  await actor.setFlag('burger-time', 'secondsSinceLastMeal', seconds + elapsed)
+
+  Hooks.call('updateHunger', actor)
+}
+
 export const evaluateHunger = async (actor) => {
   const daysSinceLastMeal = daysFromSeconds(Number(actor.getFlag('burger-time', 'secondsSinceLastMeal')))
 
@@ -84,6 +94,7 @@ export const removeHungerEffects = async (actor) => {
     }
   })
   await actor.setFlag('burger-time', 'hungerActiveEffect', null)
+  Hooks.call('removeHungerEffects', actor)
 }
 
 export const initializeHunger = async (actor) => {
@@ -94,10 +105,12 @@ export const initializeHunger = async (actor) => {
     actor.setFlag('burger-time', 'lastMealNotificationAt', now),
     actor.setFlag('burger-time', 'lastDrinkAt', now),
   ])
+  Hooks.call('initializeHunger', actor)
 }
 
-export const unset = async (actor) => {
+export const unsetHunger = async (actor) => {
   for (const key in actor.data.flags['burger-time']) {
     await actor.unsetFlag('burger-time', key)
   }
+  Hooks.call('unsetHunger', actor)
 }

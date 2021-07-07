@@ -23,12 +23,16 @@ export default class HungerTable extends Application {
       hungerTable.render(true)
     } else {
       hungerTable = new HungerTable()
-      Hooks.on('updateWorldTime', async () => { hungerTable.render(false) })
       Hooks.on('evaluateHunger', async () => { hungerTable.render(true) })
       Hooks.on('addOrUpdateHungerEffect', async () => { hungerTable.render(false) })
+      Hooks.on('removeHungerEffects', async () => { hungerTable.render(true) })
       Hooks.on('consumeFood', async () => { hungerTable.render(true) })
+      Hooks.on('updateHunger', async () => { hungerTable.render(true) })
       Hooks.on('resetHunger', async () => { hungerTable.render(true) })
+      Hooks.on('initializeHunger', async () => { hungerTable.render(true) })
+      Hooks.on('unsetHunger', async () => { hungerTable.render(true) })
       Hooks.on('createActor', async () => { hungerTable.render(true) })
+      Hooks.on('updateWorldTime', async () => { hungerTable.render(true) })
   
       hungerTable.render(true)
     }

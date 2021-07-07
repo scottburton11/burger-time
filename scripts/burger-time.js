@@ -13,7 +13,8 @@ import {
   consumeFood,
   initializeHunger,
   evaluateHunger,
-  unset,
+  updateHunger,
+  unsetHunger,
 } from "./lib/hunger.js"
 
 import { preloadTemplates } from './lib/preloadTemplates.js';
@@ -93,10 +94,8 @@ class BurgerTime {
 
         if (!activeUser) return
 
-        const seconds = actor.getFlag('burger-time', 'secondsSinceLastMeal')
-        if (typeof seconds === 'undefined') return
+        await updateHunger(actor, elapsed)
 
-        await actor.setFlag('burger-time', 'secondsSinceLastMeal', seconds + elapsed)
         const lastMealNotificationAt = actor.getFlag('burger-time', 'lastMealNotificationAt')
         const daysSinceLastMealNotification = daysFromSeconds(secondsAgo(lastMealNotificationAt))
         if (daysSinceLastMealNotification >= 1) {
@@ -104,7 +103,7 @@ class BurgerTime {
         }
       })
     })
-
+    
     // 0.7.x ???
     Hooks.on('preUpdateOwnedItem', async (actor, item, data, action) => {
       if (data.hasOwnProperty('sort')) return
@@ -172,7 +171,7 @@ class BurgerTime {
   }
 
   static async resetHunger(actor) {
-    await unset(actor)
+    await unsetHunger(actor)
     await initializeHunger(actor)
     Hooks.call("resetHunger", actor)
   }
