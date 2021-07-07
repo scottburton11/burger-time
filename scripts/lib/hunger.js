@@ -56,9 +56,8 @@ export const addOrUpdateHungerEffect = async (actor, exhaustionLevel) => {
   let effect;
   const hungerEffects = activeHungerEffectsFor(actor)
   if (hungerEffects.length == 0) {
-    effect = ActiveEffect.create(activeEffectConfig, actor)
-    const applied = await effect.create()
-    actor.setFlag('burger-time', 'hungerActiveEffect', applied._id)
+    effect = await actor.createEmbeddedEntity('ActiveEffect', activeEffectConfig)
+    await actor.setFlag('burger-time', 'hungerActiveEffect', effect.id)
   } else {
     effect = hungerEffects[0]
     actor.updateEmbeddedEntity("ActiveEffect", Object.assign(effect.data, activeEffectConfig))
