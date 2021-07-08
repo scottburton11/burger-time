@@ -17,7 +17,8 @@ export const hungerIndex = (daysSinceLastMeal) => {
 }
 
 export const hungerLevel = (actor) => {
-  return HUNGER_LEVELS[hungerIndex(daysFromSeconds(Number(actor.getFlag('burger-time', 'secondsSinceLastMeal'))))] || "Unknown"
+  const level = HUNGER_LEVELS[hungerIndex(daysFromSeconds(Number(actor.getFlag('burger-time', 'secondsSinceLastMeal'))))] || "unknown"
+  return game.i18n.localize(`BURGER_TIME.hunger.${level}`)
 }
 
 

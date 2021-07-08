@@ -7,5 +7,14 @@
     "BURGER_TIME.at": "at",
     "BURGER_TIME.on": "on",
     "BURGER_TIME.none": "none",
-    "BURGER_TIME.use": "use"
+    "BURGER_TIME.use": "use",
+    "BURGER_TIME.hunger.starving": "Starving",
+    "BURGER_TIME.hunger.famished": "Famished",
+    "BURGER_TIME.hunger.ravenous": "Ravenous",
+    "BURGER_TIME.hunger.hungry": "Hungry",
+    "BURGER_TIME.hunger.packish": "A Bit Peckish",
+    "BURGER_TIME.hunger.satisfied": "Satisfied",
+    "BURGER_TIME.hunger.full": "Full",
+    "BURGER_TIME.hunger.stuffed": "Stuffed",
+    "BURGER_TIME.hunger.unknown": "Unknown"
 }

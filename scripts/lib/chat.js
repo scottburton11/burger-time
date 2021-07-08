@@ -18,10 +18,12 @@ export const hungerChatMessage = (actor, hungerIndex) => {
 
   const buttonsHtml = rations ? `<button data-action='consumeFood' data-item-id='${rations._id}' data-actor-id='${actor._id}'>Eat Now</button>` : `<button class='disabled'>No Rations</button>`
 
+  const hunger = localize(`hunger.${HUNGER_LEVELS[hungerIndex]}`)
+  
   const chatContent = `<div class='dnd5e chat-card'>
       <div class='card-header flexrow'>
         <img src="${HUNGER_ICONS[hungerIndex]}" title="Rations" width="36" height="36">
-        <h3>${localize('chat.you_are')} ${HUNGER_LEVELS[hungerIndex]}</h3>
+        <h3>${localize('chat.you_are')} ${hunger}</h3>
       </div>
       <div class='card-content'>
         <p>
@@ -35,7 +37,7 @@ export const hungerChatMessage = (actor, hungerIndex) => {
         ${buttonsHtml}
       </div>
       <div class='card-footer'>
-        <span>${HUNGER_LEVELS[hungerIndex]}</span>
+        <span>${hunger}</span>
         <span>Last Meal: ${lastMealAt.shortDate().time} ${localize('on')} ${lastMealAt.shortDate().date}</span>
         <span>Rations: ${rations ? rations.data.data.quantity : localize('none').titleCase()}</span>
       </div>

@@ -1,12 +1,12 @@
 const HUNGER_LEVELS = [
-  'Starving',
-  'Famished',
-  'Ravenous',
-  'Hungry',
-  'A Bit Peckish',
-  'Satisfied',
-  'Full',
-  'Stuffed'
+  'starving',
+  'famished',
+  'ravenous',
+  'hungry',
+  'packish',
+  'satisfied',
+  'full',
+  'stuffed'
 ]
 
 const HUNGER_ICONS = [
