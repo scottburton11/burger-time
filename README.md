@@ -76,3 +76,16 @@ The following useful macros are available for GMs:
 
 * [About Time](https://gitlab.com/tposney/about-time)
 * [D&D 5e System]()
+
+## Acknowledgements
+
+Thanks to these amazing folks for bug reports, feature recommendations and testing support:
+* [@deraviin](https://github.com/deraviin)
+* [@Jonwh25](https://github.com/Jonwh25)
+* [@jesucar3](https://github.com/jesucar3)
+* [@aprusik](https://github.com/aprusik)
+* [@SR5060](https://github.com/SR5060)
+* [@Heljspe](https://github.com/Heljspe)
+* [@valhallatoys](https://github.com/valhallatoys)
+
+Keep em coming!
