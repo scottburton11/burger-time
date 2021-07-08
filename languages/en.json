@@ -1,3 +1,11 @@
 {
-    "MODULE.hello": "hello"
+    "BURGER_TIME.hello": "hello",
+    "BURGER_TIME.chat.you_are": "You are",
+    "BURGER_TIME.chat.eaten_since": "You haven't eaten since",
+    "BURGER_TIME.chat.to_regain_your_strength": "to regain your strength",
+    "BURGER_TIME.chat.to_satisfy_your_hunger": "to satisfy your hunger",
+    "BURGER_TIME.at": "at",
+    "BURGER_TIME.on": "on",
+    "BURGER_TIME.none": "none",
+    "BURGER_TIME.use": "use"
 }
