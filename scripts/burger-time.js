@@ -4,15 +4,9 @@ import {
 } from "./lib/constants.js"
 
 import {
-  secondsAgo,
-  daysFromSeconds
-} from "./lib/time.js"
-
-import {
-  hungerLevel,
   consumeFood,
+  hungerLevel,
   initializeHunger,
-  evaluateHunger,
   updateHunger,
   unsetHunger,
 } from "./lib/hunger.js"
@@ -20,9 +14,31 @@ import {
 import { preloadTemplates } from './lib/preloadTemplates.js';
 import HungerTable from './lib/hunger-table.js'
 
+import DND5eSystem from './lib/systems/dnd5e.js'
+
+class NoOpSystem {
+  async evaluateHunger(actor) { 
+    return
+  }
+}
+
 Hooks.once('init', async => {
-  game.BurgerTime = BurgerTime
-  BurgerTime.init()
+  let system
+
+  switch (game.system.id) {
+    case 'dnd5e':
+      system = new DND5eSystem(game.system)
+      break;
+  
+    default:
+      system = new NoOpSystem(game.system)
+      break;
+  }
+
+  // game.BurgerTime = BurgerTime
+  // BurgerTime.init(system)
+  game.BurgerTime = new BurgerTime(system)
+  game.BurgerTime.init()
 })
 
 Hooks.once('ready', async => {
@@ -32,7 +48,11 @@ Hooks.once('ready', async => {
 })
 
 class BurgerTime {
-  static async init() {
+  constructor(system) {
+    this.system = system
+  }
+  
+  async init() {
     console.log("Burger Time | Initialized")
     
     await registerSettings()
@@ -43,7 +63,7 @@ class BurgerTime {
     }
   }
 
-  static setupHooks() {
+  setupHooks() {
     console.log("Burger Time | Setup")
 
     Hooks.on('ready', () => {
@@ -96,11 +116,7 @@ class BurgerTime {
 
         await updateHunger(actor, elapsed)
 
-        const lastMealNotificationAt = actor.getFlag('burger-time', 'lastMealNotificationAt')
-        const daysSinceLastMealNotification = daysFromSeconds(secondsAgo(lastMealNotificationAt))
-        if (daysSinceLastMealNotification >= 1) {
-          await evaluateHunger(actor)
-        }
+        this.system.evaluateHunger(actor)
       })
     })
     
@@ -153,7 +169,7 @@ class BurgerTime {
     })
   }
 
-  static initializeScene() {
+  initializeScene() {
     console.log("Burger Time | Initializing Scene")
     game.scenes.active.data.tokens.forEach(async (token) => {
       const actor = game.actors.get(token.data.actorId)
@@ -166,11 +182,11 @@ class BurgerTime {
     })
   }
 
-  static showHungerTable() {
+  showHungerTable() {
     HungerTable.activate()
   }
 
-  static async resetHunger(actor) {
+  async resetHunger(actor) {
     await unsetHunger(actor)
     await initializeHunger(actor)
     Hooks.call("resetHunger", actor)
