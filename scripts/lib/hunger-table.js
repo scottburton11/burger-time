@@ -1,5 +1,4 @@
 import {
-  hungerIndex,
   hungerLevel
 } from "./hunger.js"
 
@@ -18,11 +17,12 @@ export default class HungerTable extends Application {
     super(object, options)
   }
 
-  static activate() {
+  static activate(system) {
     if (hungerTable) {
       hungerTable.render(true)
     } else {
       hungerTable = new HungerTable()
+      hungerTable.system = system
       Hooks.on('evaluateHunger', async () => { hungerTable.render(true) })
       Hooks.on('addOrUpdateHungerEffect', async () => { hungerTable.render(false) })
       Hooks.on('removeHungerEffects', async () => { hungerTable.render(true) })
@@ -50,7 +50,7 @@ export default class HungerTable extends Application {
           daysSinceLastNotified: daysFromSeconds(secondsAgo(actor.getFlag('burger-time', 'lastMealNotificationAt'))),
           secondsSinceLastMeal: actor.getFlag('burger-time', 'secondsSinceLastMeal'),
           hoursSinceLastMeal: Math.round((actor.getFlag('burger-time', 'secondsSinceLastMeal') / HOUR) * 100)/100,
-          hunger: hungerLevel(actor),
+          hunger: hungerLevel(this.system.daysHungryForActor(actor)),
         }
       })
     }

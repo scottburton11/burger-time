@@ -1,22 +1,21 @@
 import {
   DEFAULT_HUNGER_LEVEL,
   HUNGER_LEVELS,
+  HUNGER_ICONS,
 } from './constants.js'
 
-import {
-  daysFromSeconds,
-  secondsAgo
-} from './time.js'
-
-export const hungerIndex = (daysSinceLastMeal) => {
-  return Math.max(DEFAULT_HUNGER_LEVEL - daysSinceLastMeal, 0)
-}
-
-export const hungerLevel = (actor) => {
-  const level = HUNGER_LEVELS[hungerIndex(daysFromSeconds(Number(actor.getFlag('burger-time', 'secondsSinceLastMeal'))))] || "unknown"
+export const hungerLevel = (daysHungry) => {
+  const level = HUNGER_LEVELS[hungerIndex(daysHungry)] || "unknown"
   return game.i18n.localize(`BURGER_TIME.hunger.${level}`)
 }
 
+export const hungerIcon = (daysHungry) => {
+  return HUNGER_ICONS[hungerIndex(daysHungry)]
+}
+
+export const hungerIndex = (daysHungry) => {
+  return Math.max(DEFAULT_HUNGER_LEVEL - daysHungry, 0)
+}
 
 export const updateHunger = async (actor, elapsed) => {
   const seconds = actor.getFlag('burger-time', 'secondsSinceLastMeal')

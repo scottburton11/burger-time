@@ -161,12 +161,6 @@ class BurgerTime {
 
 
     })
-
-    Hooks.on('renderActorSheet5eCharacter', async (app, html, sheet) => {
-      const el = $(html).find('.counters')
-      const actor = game.actors.get(sheet.actor._id)
-      el.append(`<div class='counter flexrow hunger'><h4>Hunger</h4><div class='counter-value'>${hungerLevel(actor)}</div></div>`)
-    })
   }
 
   initializeScene() {
@@ -183,7 +177,7 @@ class BurgerTime {
   }
 
   showHungerTable() {
-    HungerTable.activate()
+    HungerTable.activate(this.system)
   }
 
   async resetHunger(actor) {
