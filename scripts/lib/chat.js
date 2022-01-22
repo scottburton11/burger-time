@@ -3,8 +3,8 @@ import { localize } from './utils.js'
 export const hungerChatMessage = (actor, chatContent) => {
 
   const recipients = game.users.filter((user) => {
-    return actor.testUserPermission(user, foundry.CONST.DOCUMENT_PERMISSION_LEVELS['OBSERVER'])
-  }).map(user => user.id)
+      return actor.testUserPermission(user, foundry.CONST.DOCUMENT_PERMISSION_LEVELS['OBSERVER'])
+    }).map(user => user.id)
   
   ChatMessage.create({
     whisper: recipients,
