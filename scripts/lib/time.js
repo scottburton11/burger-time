@@ -3,7 +3,7 @@ import {
 } from "./constants.js"
 
 export const secondsAgo = (seconds) => {
-  return game.Gametime.pc.currentTime - seconds
+  return game.time.worldTime - seconds
 }
 
 export const daysFromSeconds = (seconds) => {

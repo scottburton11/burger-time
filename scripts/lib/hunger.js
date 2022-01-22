@@ -34,11 +34,11 @@ export const addOrUpdateHungerEffect = async (actor, activeEffectConfig) => {
   let effect;
   const hungerEffects = activeHungerEffectsFor(actor)
   if (hungerEffects.length == 0) {
-    effect = await actor.createEmbeddedEntity('ActiveEffect', activeEffectConfig)
+    effect = await ActiveEffect.create(activeEffectConfig, {parent: actor})
     await actor.setFlag('burger-time', 'hungerActiveEffect', effect.id)
   } else {
     effect = hungerEffects[0]
-    actor.updateEmbeddedEntity("ActiveEffect", Object.assign(effect.data, activeEffectConfig))
+    effect.update(activeEffectConfig)
   }
 
   Hooks.call('addOrUpdateHungerEffect', actor, effect)
@@ -62,7 +62,7 @@ export const removeHungerEffects = async (actor) => {
 }
 
 export const initializeHunger = async (actor) => {
-  const now = game.Gametime.pc.currentTime
+  const now = game.time.worldTime
   await Promise.all([
     actor.setFlag('burger-time', 'secondsSinceLastMeal', 0),
     actor.setFlag('burger-time', 'lastMealAt', now),

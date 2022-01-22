@@ -15,10 +15,10 @@
     }
   ],
   "dependencies": [
-      {
-        "name": "about-time",
-        "manifest": "https://gitlab.com/tposney/about-time/-/raw/master/src/module.json"
-      },
+    {
+      "name": "foundryvtt-simple-calendar",
+      "type": "module"
+    },
       {
         "name": "dnd5e",
         "type": "system"
