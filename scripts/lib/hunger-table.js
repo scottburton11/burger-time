@@ -42,7 +42,7 @@ export default class HungerTable extends Application {
   getData() {
     return {
       actors: game.actors.filter(actor => actor.hasPlayerOwner).map(a => {
-        const actor = game.actors.get(a._id)
+        const actor = game.actors.get(a.id)
         return {
           name: actor.name, 
           lastMealAt: this.formattedDate(actor.getFlag('burger-time', 'lastMealAt')),
@@ -58,7 +58,7 @@ export default class HungerTable extends Application {
 
   formattedDate(seconds) {
     if (!seconds) return ''
-    return game.Gametime.DTf({ seconds }).shortDate()
+    return SimpleCalendar.api.timestampToDate(seconds)
   }
 
   static get defaultOptions() {

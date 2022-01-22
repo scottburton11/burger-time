@@ -65,7 +65,9 @@ Since hunger timers depend on the game's world time, players won't see any notif
 * The [game timer is actively running](https://gitlab.com/tposney/about-time/-/blob/master/GettingStarted.md#time-passing), using `game.Gametime.startRunning()`. This is how Burger Time is designed to be used.
 * You manually advance the clock, using About Time's clock widget, `game.advanceTime()`, or some other method.
 
-You also won't see amy notifications if you are a GM and no players are logged in. Only player-controlled Actors are tracked and evaluated.
+If you are a GM, and no players are logged in, you won't see any hunger messages unless you uncheck "Don't make missing players hungry", which is on by default. 
+
+Only tokens assigned to players as "OWNER" are evaluated.
 
 Burger Time may behave weirdly if the clock has never run. When in doubt, set the game clock, then use the `resetHunger` method (below) to reinitialize an actor. 
 ## GM Macros

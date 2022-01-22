@@ -8,6 +8,15 @@ const registerSettings = async () => {
     default: true,
   })
 
+  await game.settings.register('burger-time', 'skipMissingPlayers', {
+    name: "Don't make missing players hungry",
+    hint: "Skip evaluating hunger for any players who aren't logged in",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+  })
+
   await game.settings.register('burger-time', 'rationsPerDay', {
     name: "Rations Per Day",
     hint: "Each actor consumes this number of rations per day",
@@ -61,6 +70,7 @@ const registerSettings = async () => {
 //     type: String,
 //     default: "Waterskin",
 //   })
+
 }
 
 export default registerSettings

@@ -5,7 +5,6 @@ import {
 
 import {
   consumeFood,
-  hungerLevel,
   initializeHunger,
   updateHunger,
   unsetHunger,
@@ -73,7 +72,7 @@ class BurgerTime {
     Hooks.on('preCreateToken', async (document, data, options) => {
       const actor = game.actors.get(document.data.actorId)
       if (typeof actor === "undefined") return
-      if (!actor.hasPlayerOwner) return
+      // if (!actor.hasPlayerOwner) return
       if (!game.user.isGM) return
       if (!actor.getFlag('burger-time', 'lastMealAt')) {
         await initializeHunger(actor)
@@ -86,63 +85,41 @@ class BurgerTime {
     })
 
     Hooks.on('updateWorldTime', async (seconds, elapsed) => {
+      if (!game.scenes.active) return
       if (!game.user.isGM) return
-
-      // We want to reset hunger in these two circumstances
-      // We skipped backwards
-      if (elapsed < 0) {
-        await initializeHunger(actor)
-        return
-      }
-
-      // We skipped forward more than a day
-      if (elapsed > DAY * 2) {
-        await initializeHunger(actor)
-        return
-      }
-
-      const activeUsers = game.users.filter(user => user.active && !user.isGM)
 
       game.scenes.active.data.tokens.forEach(async token => {
         const actor = game.actors.get(token.data.actorId)
+        // We want to skip non-actors and players who aren't logged in
         if (typeof actor === 'undefined') return
-        if (!actor.hasPlayerOwner) return
+        if (!actor.hasPlayerOwner && game.settings.get('burger-time', 'skipMissingPlayers')) return
 
-        let activeUser;
+        // We want to reset hunger in these two circumstances
+        // We skipped backwards
+        if (elapsed < 0) {
+          await initializeHunger(actor)
+          return
+        }
 
-        activeUser = activeUsers.find(user => actor.testUserPermission(user, "OWNER"))
-
-        if (!activeUser) return
+        // We skipped forward more than a day
+        if (elapsed > DAY * 2) {
+          await initializeHunger(actor)
+          return
+        }
 
         await updateHunger(actor, elapsed)
 
-        this.system.evaluateHunger(actor)
+        await this.system.evaluateHunger(actor)
       })
     })
     
-    // 0.7.x ???
-    Hooks.on('preUpdateOwnedItem', async (actor, item, data, action) => {
-      if (data.hasOwnProperty('sort')) return
+    Hooks.on('preUpdateItem', async (item, change) => {
+      if (change.hasOwnProperty('sort')) return
 
       if (game.settings.get('burger-time', 'rationName') === item.name) {
-        if (item.data.quantity === data.data.quantity + 1) {
-          consumeFood(actor)
-        }
-      } 
-      // else if (game.settings.get('burger-time', 'waterName') === item.name) {
-      //   if (item.data.uses.value === data.data.uses.value + 1) {
-
-      //   }
-      // }
-    })
-
-    // 0.8.x
-    Hooks.on('preUpdateItem', async (item, data, options, actorId) => {
-      if (data.hasOwnProperty('sort')) return
-
-      if (game.settings.get('burger-time', 'rationName') === item.name) {
-        if (item.data.data.quantity === data.data.quantity + 1) {
-          await consumeFood(item.actor)
+        if (item.data.data.uses.value === change.data.uses.value + 1) {
+          const actor = await game.actors.get(item.actor.id);
+          await consumeFood(actor)
         }
       } 
       // else if (game.settings.get('burger-time', 'waterName') === item.name) {
@@ -158,13 +135,12 @@ class BurgerTime {
         const item = actor.getOwnedItem(event.target.dataset.itemId)
         return item.roll();
       })
-
-
     })
   }
 
   initializeScene() {
     console.log("Burger Time | Initializing Scene")
+    if (!game.scenes.active) return
     game.scenes.active.data.tokens.forEach(async (token) => {
       const actor = game.actors.get(token.data.actorId)
       if (typeof actor === "undefined") return

@@ -3,7 +3,7 @@ import { localize } from './utils.js'
 export const hungerChatMessage = (actor, chatContent) => {
 
   ChatMessage.create({
-    whisper: game.users.filter(user => actor.hasPerm(user, "OWNER")),
+    whisper: game.users.filter(user => actor.testUserPermission(user)),
     type: CONST.CHAT_MESSAGE_TYPES.OTHER,
     speaker: { actor: actor._id },
     content: chatContent,

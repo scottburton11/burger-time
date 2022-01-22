@@ -40,7 +40,7 @@ export default class DND5eSystem {
       const chatContent = this.chatContent(actor, daysHungry)
 
       hungerChatMessage(actor, chatContent)
-      await actor.setFlag('burger-time', 'lastMealNotificationAt', game.Gametime.pc.currentTime)
+      await actor.setFlag('burger-time', 'lastMealNotificationAt', game.time.worldTime)
       Hooks.call('evaluateHunger', actor)
     }
   }
@@ -74,7 +74,8 @@ export default class DND5eSystem {
   }
 
   chatContent(actor, daysHungry) {
-    const lastMealAt = game.Gametime.DTf({ seconds: Number(actor.getFlag('burger-time', 'lastMealAt')) })
+    // const lastMealAt = g({ seconds: Number(actor.getFlag('burger-time', 'lastMealAt')) })
+    const lastMealAt = SimpleCalendar.api.timestampToDate(Number(actor.getFlag('burger-time', 'lastMealAt')));
 
     let rations
     rations = actor.data.items.find(item => item.name === game.settings.get('burger-time', 'rationName'))
@@ -92,7 +93,7 @@ export default class DND5eSystem {
       </div>
       <div class='card-content'>
         <p>
-          ${localize('chat.eaten_since')} <strong>${lastMealAt.longDate().date}</strong> ${localize('at')} <strong>${lastMealAt.longDate().time}</strong>.
+          ${localize('chat.eaten_since')} <strong>${lastMealAt.display.date}</strong> ${localize('at')} <strong>${lastMealAt.display.time}</strong>.
         </p>
         <p>
           ${actionHtml}
@@ -103,7 +104,7 @@ export default class DND5eSystem {
       </div>
       <div class='card-footer'>
         <span>${hunger}</span>
-        <span>Last Meal: ${lastMealAt.shortDate().time} ${localize('on')} ${lastMealAt.shortDate().date}</span>
+        <span>Last Meal: ${lastMealAt.display.date} ${localize('on')} ${lastMealAt.display.time}</span>
         <span>Rations: ${rations ? rations.data.data.quantity : localize('none').titleCase()}</span>
       </div>
     </div>`
